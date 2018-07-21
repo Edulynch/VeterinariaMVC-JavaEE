@@ -1,0 +1,15 @@
+com\eduardolynch\veterinariaMVC\entidad\Usuario_.class
+com\eduardolynch\veterinariaMVC\entidad\Mascota.class
+com\eduardolynch\veterinariaMVC\clases\PasswordUtils.class
+com\eduardolynch\veterinariaMVC\modelo\exceptions\NonexistentEntityException.class
+com\eduardolynch\veterinariaMVC\modelo\exceptions\RollbackFailureException.class
+com\eduardolynch\veterinariaMVC\entidad\Usuario.class
+com\eduardolynch\veterinariaMVC\modelo\Impl\MascotaJpaControllerImpl.class
+com\eduardolynch\veterinariaMVC\modelo\MascotaJpaController.class
+com\eduardolynch\veterinariaMVC\entidad\Mascota_.class
+com\eduardolynch\veterinariaMVC\controlador\AccionesDeUsuario.class
+com\eduardolynch\veterinariaMVC\modelo\exceptions\IllegalOrphanException.class
+com\eduardolynch\veterinariaMVC\modelo\Impl\UsuarioJpaControllerImpl.class
+com\eduardolynch\veterinariaMVC\modelo\exceptions\PreexistingEntityException.class
+com\eduardolynch\veterinariaMVC\modelo\UsuarioJpaController.class
+com\eduardolynch\veterinariaMVC\controlador\AccionesDeMascota.class
