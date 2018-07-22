@@ -21,19 +21,19 @@ import javax.persistence.TypedQuery;
  * @author Eduardo Lynch Araya
  */
 public class UsuarioJpaController implements UsuarioJpaControllerImpl {
-    
+
     public UsuarioJpaController(UserTransaction utx) {
         this.utx = utx;
         this.emf = Persistence.createEntityManagerFactory("VeterinariaPU");
     }
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
-    
+
     @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
+
     @Override
     public void create(Usuario usuario) throws RollbackFailureException, Exception {
         EntityManager em = null;
@@ -55,7 +55,7 @@ public class UsuarioJpaController implements UsuarioJpaControllerImpl {
             }
         }
     }
-    
+
     @Override
     public void edit(Usuario usuario) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
@@ -84,7 +84,7 @@ public class UsuarioJpaController implements UsuarioJpaControllerImpl {
             }
         }
     }
-    
+
     @Override
     public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
@@ -113,32 +113,33 @@ public class UsuarioJpaController implements UsuarioJpaControllerImpl {
             }
         }
     }
-    
+
     @Override
     public List<Usuario> findUsuarioEntities() {
         return findUsuarioEntities(true, -1, -1);
     }
-    
+
     @Override
     public boolean isEmailAndPasswordCorrect(String email, String password) {
 
         // Encrypted and Base64 encoded password read from database
         String securePassword = findUsuarioByEmail(email).getPassword();
-        
+
         boolean passwordMatch = PasswordUtils.verifyUserPassword(password, securePassword, PasswordUtils.SALT);
-        
+
         if (passwordMatch) {
             return true;
         } else {
             return false;
         }
     }
-    
+
     @Override
-    public List<Usuario> findUsuarioEntities(int maxResults, int firstResult) {
+    public List<Usuario> findUsuarioEntities(int maxResults, int firstResult
+    ) {
         return findUsuarioEntities(false, maxResults, firstResult);
     }
-    
+
     private List<Usuario> findUsuarioEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
@@ -154,7 +155,7 @@ public class UsuarioJpaController implements UsuarioJpaControllerImpl {
             em.close();
         }
     }
-    
+
     @Override
     public Usuario findUsuarioById(Integer id) {
         EntityManager em = getEntityManager();
@@ -164,7 +165,7 @@ public class UsuarioJpaController implements UsuarioJpaControllerImpl {
             em.close();
         }
     }
-    
+
     @Override
     public Usuario findUsuarioByEmail(String email) {
         EntityManager em = getEntityManager();
@@ -177,7 +178,7 @@ public class UsuarioJpaController implements UsuarioJpaControllerImpl {
             return usuario.get(0);
         }
     }
-    
+
     @Override
     public int getUsuarioCount() {
         EntityManager em = getEntityManager();
@@ -191,5 +192,5 @@ public class UsuarioJpaController implements UsuarioJpaControllerImpl {
             em.close();
         }
     }
-    
+
 }

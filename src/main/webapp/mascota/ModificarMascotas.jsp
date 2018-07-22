@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificar Mascota</title>  
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
         <link href="css/Style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -21,11 +21,12 @@
                 <form method="post" action="AccionesDeMascota">
                     <input type="hidden" name="accion" value="editar">
                     <input type="hidden" name="idMascota" value="${mascota.idMascota}" />
+                    <input type="hidden" name="idUsuario" value="${mascota.idUsuario}" />
                     <div class="form-group">
                         Nombre: <input type="text" name="nomMascota" class="form-control" value="${mascota.nombre}" required autofocus/>
                     </div>
                     <div class="form-group">
-                        Raza <input type="text" name="razaMascota" class="form-control" value="${mascota.raza}" required autofocus/>
+                        Raza <input type="text" name="razaMascota" class="form-control" value="${mascota.raza}" required/>
                         <br /> 
                     </div> 
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Actualizar</button>   

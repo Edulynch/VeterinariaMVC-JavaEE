@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.eduardolynch.veterinariaMVC.modelo.UsuarioJpaController;
 import com.eduardolynch.veterinariaMVC.entidad.Usuario;
 import javax.servlet.RequestDispatcher;
-import com.eduardolynch.veterinariaMVC.clases.PasswordUtils;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -52,7 +51,6 @@ public class AccionesDeUsuario extends HttpServlet {
                 String emailUsuario = request.getParameter("emailUsuario");
                 String roleUsuario = request.getParameter("roleUsuario");
                 String passUsuario = request.getParameter("passUsuario");
-                passUsuario = PasswordUtils.generateSecurePassword(passUsuario, PasswordUtils.SALT);
                 Usuario nuevoUsuario = new Usuario();
                 nuevoUsuario.setNombre(nomUsuario);
                 nuevoUsuario.setApellido(apeUsuario);
@@ -68,19 +66,44 @@ public class AccionesDeUsuario extends HttpServlet {
                     out.println("<h2>Ya existe un Usuario Asociado al siguiente E-Mail:</h2>");
                     out.println(emailUsuario);
                     out.println("<br /><br />Seras redireccionado al Inicio en 5 Segundos...");
-                    response.setHeader("Refresh", "10; URL="+request.getContextPath());
+                    response.setHeader("Refresh", "5; URL=" + request.getContextPath());
                 }
                 //Ir a la pagina de Registro
             } else if (accion.equalsIgnoreCase("registrar")) {
                 RequestDispatcher rd = request.getRequestDispatcher("usuario/Registro.jsp");
                 rd.forward(request, response);
+                //Iniciar Sesion
             } else if (accion.equalsIgnoreCase("login")) {
+                if (respuesta.isNew()) {
+                    respuesta.invalidate();
+                }
 
-//                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/usuario/Registro.jsp");
-//                rd.forward(request, response);
+                String emailUsuario = request.getParameter("emailUsuario");
+                String passUsuario = request.getParameter("passUsuario");
+                //Comprobamos Email y Contraseña
+                if (acciones.isEmailAndPasswordCorrect(emailUsuario, passUsuario)) {
+                    Usuario logged = acciones.findUsuarioByEmail(emailUsuario);
+                    respuesta.setAttribute("Id", logged.getIdUsuario());
+                    respuesta.setAttribute("Nombre", logged.getNombre());
+                    respuesta.setAttribute("Apellido", logged.getApellido());
+                    respuesta.setAttribute("Email", logged.getEmail());
+                    respuesta.setAttribute("Rol", logged.getRol());
+                    if (logged.getRol().equalsIgnoreCase("MEDICO")) {
+                        RequestDispatcher rd = request.getRequestDispatcher("AccionesDeFicha?accion=listarfichas");
+                        rd.forward(request, response);
+                    } else {
+                        RequestDispatcher rd = request.getRequestDispatcher("AccionesDeMascota?accion=listar");
+                        rd.forward(request, response);
+                    }
+                } else {
+                    out.println("<br /><h2>Usuario o Contraseña Incorrecto</h2>");
+                    out.println("<br />Seras redireccionado al Inicio en 5 Segundos...");
+                    response.setHeader("Refresh", "5; URL=" + request.getContextPath());
+                }
             } else {
                 out.println("<h1>Error:  No he recibido ningun parametro valido</h1>");
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
             out.println("<h1>Error:  " + ex.getLocalizedMessage() + " - " + ex.getMessage() + "</h1>");

@@ -11,8 +11,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Registro &mdash; Veterinaria</title>
-        <link rel="stylesheet" type="text/css" href="RECURSOS/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="RECURSOS/css/my-login.css">
+        <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/my-login.css">
     </head>
     <body class="my-login-page">
         <section class="h-100">
@@ -20,7 +20,7 @@
                 <div class="row justify-content-md-center h-100">
                     <div class="card-wrapper">
                         <div class="brand">
-                            <img src="RECURSOS/img/logo.jpg">
+                            <img src="assets/img/logo.jpg">
                         </div>
                         <div class="card fat">
                             <div class="card-body">
@@ -80,8 +80,8 @@
             </div>
         </section>
 
-        <script src="RECURSOS/js/jquery.min.js"></script>
-        <script src="RECURSOS/bootstrap/js/bootstrap.min.js"></script>
-        <script src="RECURSOS/js/my-login.js"></script>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/my-login.js"></script>
     </body>
 </html>

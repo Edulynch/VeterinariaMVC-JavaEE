@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Agregar Mascota</title>
-        <link rel="stylesheet" type="text/css" href="RECURSOS/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
 
     </head>
     <body>
@@ -20,6 +20,7 @@
                 <!-- Formulario de Datos, la accion va a una pagina jsp que nos va a insertar los datos -->
                 <form method="post" action="AccionesDeMascota">
                     <input type="hidden" name="accion" value="crear">
+                    <input type="hidden" name="idMascota" value="<%= request.getAttribute("Id") %>" />
                     <div class="form-group">
                         Nombre: <input type="text" name="nomMascota" class="form-control" required autofocus/>
                     </div>

@@ -20,6 +20,10 @@ public interface MascotaJpaControllerImpl extends Serializable {
     void edit(Mascota mascota) throws NonexistentEntityException, RollbackFailureException, Exception;
 
     Mascota findMascota(Integer id);
+    
+    List<Mascota> findMascotaByIdUsuario(Integer idUsuario);
+    
+//    List<Mascota> findMascotaByEmailUsuario(String emailUsuario);
 
     List<Mascota> findMascotaEntities();
 

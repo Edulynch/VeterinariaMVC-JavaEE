@@ -8,6 +8,10 @@
         <servlet-name>AccionesDeUsuario</servlet-name>
         <servlet-class>com.eduardolynch.veterinariaMVC.controlador.AccionesDeUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccionesDeFicha</servlet-name>
+        <servlet-class>com.eduardolynch.veterinariaMVC.controlador.AccionesDeFicha</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccionesDeMascota</servlet-name>
         <url-pattern>/AccionesDeMascota</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>AccionesDeUsuario</servlet-name>
         <url-pattern>/AccionesDeUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccionesDeFicha</servlet-name>
+        <url-pattern>/AccionesDeFicha</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

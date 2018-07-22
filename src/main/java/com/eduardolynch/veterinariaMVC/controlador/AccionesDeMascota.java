@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eduardolynch.veterinariaMVC.modelo.MascotaJpaController;
+import com.eduardolynch.veterinariaMVC.modelo.UsuarioJpaController;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,54 +42,63 @@ public class AccionesDeMascota extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession respuesta = request.getSession(true);
         String accion = request.getParameter("accion");
+        int idUsuarioSession = Integer.parseInt(respuesta.getAttribute("Id").toString());
+
         try {
             MascotaJpaController acciones = new MascotaJpaController(utx);
             if (accion.equalsIgnoreCase("listar")) {
-                List<Mascota> lista = (List<Mascota>) acciones.findMascotaEntities();
+                List<Mascota> lista = (List<Mascota>) acciones.findMascotaByIdUsuario(idUsuarioSession);
                 request.setAttribute("listaMascotas", lista);
-                RequestDispatcher rd = request.getRequestDispatcher("ListaMascotas.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("mascota/ListaMascotas.jsp");
                 rd.forward(request, response);
             } else if (accion.equalsIgnoreCase("editar")) {
                 String idMascota = request.getParameter("idMascota");
+                int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
                 String nomMascota = request.getParameter("nomMascota");
                 String raza = request.getParameter("razaMascota");
                 Mascota mascotaModif = new Mascota();
+                mascotaModif.setIdUsuario(idUsuario);
                 mascotaModif.setIdMascota(Integer.parseInt(idMascota));
                 mascotaModif.setNombre(nomMascota);
                 mascotaModif.setRaza(raza);
                 acciones.edit(mascotaModif);
                 //recargar la lista!
-                List<Mascota> lista = (List<Mascota>) acciones.findMascotaEntities();
+                List<Mascota> lista = (List<Mascota>) acciones.findMascotaByIdUsuario(idUsuarioSession);
                 request.setAttribute("listaMascotas", lista);
-                RequestDispatcher rd = request.getRequestDispatcher("ListaMascotas.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("mascota/ListaMascotas.jsp");
                 rd.forward(request, response);
             } else if (accion.equalsIgnoreCase("borrar")) {
                 String idMascota = request.getParameter("idMascota");
                 acciones.destroy(Integer.parseInt(idMascota));
                 //recargar la lista!
-                List<Mascota> lista = (List<Mascota>) acciones.findMascotaEntities();
+                List<Mascota> lista = (List<Mascota>) acciones.findMascotaByIdUsuario(idUsuarioSession);
                 request.setAttribute("listaMascotas", lista);
-                RequestDispatcher rd = request.getRequestDispatcher("ListaMascotas.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("mascota/ListaMascotas.jsp");
                 rd.forward(request, response);
             } else if (accion.equalsIgnoreCase("crear")) {
+                int idUsuario = idUsuarioSession;
                 String nomMascota = request.getParameter("nomMascota");
                 String raza = request.getParameter("razaMascota");
                 Mascota mascotaNueva = new Mascota();
+                mascotaNueva.setIdUsuario(idUsuario);
                 mascotaNueva.setNombre(nomMascota);
                 mascotaNueva.setRaza(raza);
-//                acciones.create(mascotaNueva);
-                persist(mascotaNueva);
+                acciones.create(mascotaNueva);
                 //recargar la lista!
-                List<Mascota> lista = (List<Mascota>) acciones.findMascotaEntities();
+                List<Mascota> lista = (List<Mascota>) acciones.findMascotaByIdUsuario(idUsuarioSession);
                 request.setAttribute("listaMascotas", lista);
-                RequestDispatcher rd = request.getRequestDispatcher("ListaMascotas.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("mascota/ListaMascotas.jsp");
                 rd.forward(request, response);
             } else if (accion.equalsIgnoreCase("cargar")) {
                 String idMascota = request.getParameter("idMascota");
                 Mascota mascotaEncontrado = (Mascota) acciones.findMascota(Integer.parseInt(idMascota));
                 request.setAttribute("mascota", mascotaEncontrado);
-                RequestDispatcher rd = request.getRequestDispatcher("ModificarMascotas.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("mascota/ModificarMascotas.jsp");
+                rd.forward(request, response);
+            } else if (accion.equalsIgnoreCase("agregar")) {
+                RequestDispatcher rd = request.getRequestDispatcher("mascota/AgregarMascotas.jsp");
                 rd.forward(request, response);
             } else {
                 out.println("<h1>Error:  No he recibido ningun parametro valido</h1>");

@@ -4,9 +4,9 @@
     <jta-data-source>java:app/Mascotas</jta-data-source>
     <class>com.eduardolynch.veterinariaMVC.entidad.Mascota</class>
     <class>com.eduardolynch.veterinariaMVC.entidad.Usuario</class>
+    <class>com.eduardolynch.veterinariaMVC.entidad.Ficha</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

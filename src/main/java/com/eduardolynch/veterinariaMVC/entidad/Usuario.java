@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.eduardolynch.veterinariaMVC.entidad;
 
+import com.eduardolynch.veterinariaMVC.clases.PasswordUtils;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -26,6 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Eduardo Lynch Araya
  */
+
+
 @Entity(name = "Usuario")
 @Table(name = "usuario")
 @XmlRootElement
@@ -147,6 +147,7 @@ public class Usuario implements Serializable {
     }
 
     public void setPassword(String password) {
+        password = PasswordUtils.generateSecurePassword(password, PasswordUtils.SALT);
         this.password = password;
     }
 
@@ -158,8 +159,9 @@ public class Usuario implements Serializable {
         this.activo = activo;
     }
 
-    public Date getFechaRegistro() {
-        return fechaRegistro;
+    public String getFechaRegistro() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return df.format(fechaRegistro);
     }
 
     public void setFechaRegistro(Date fechaRegistro) {
@@ -188,7 +190,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.eduardolynch.veterinariaMVC.entidad.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "Usuario{" + "idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", rol=" + rol + ", activo=" + activo + ", fechaRegistro=" + fechaRegistro + '}';
     }
 
 }

@@ -1,6 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.eduardolynch.veterinariaMVC.entidad;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Mascota.findByIdMascota", query = "SELECT m FROM Mascota m WHERE m.idMascota = :idMascota")
     , @NamedQuery(name = "Mascota.findByNombre", query = "SELECT m FROM Mascota m WHERE m.nombre = :nombre")
     , @NamedQuery(name = "Mascota.findByRaza", query = "SELECT m FROM Mascota m WHERE m.raza = :raza")
+    , @NamedQuery(name = "Mascota.findByIdUsuario", query = "SELECT m FROM Mascota m WHERE m.idUsuario = :idUsuario")
     , @NamedQuery(name = "Mascota.findByFechaRegistro", query = "SELECT m FROM Mascota m WHERE m.fechaRegistro = :fechaRegistro")
     , @NamedQuery(name = "Mascota.findByActivo", query = "SELECT m FROM Mascota m WHERE m.activo = :activo")})
 public class Mascota implements Serializable {
@@ -51,6 +59,10 @@ public class Mascota implements Serializable {
     private String raza;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "idUsuario")
+    private int idUsuario;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro = new Date();
@@ -67,10 +79,11 @@ public class Mascota implements Serializable {
         this.idMascota = idMascota;
     }
 
-    public Mascota(Integer idMascota, String nombre, String raza, Date fechaRegistro, String activo) {
+    public Mascota(Integer idMascota, String nombre, String raza, int idUsuario, Date fechaRegistro, String activo) {
         this.idMascota = idMascota;
         this.nombre = nombre;
         this.raza = raza;
+        this.idUsuario = idUsuario;
         this.fechaRegistro = fechaRegistro;
         this.activo = activo;
     }
@@ -99,8 +112,17 @@ public class Mascota implements Serializable {
         this.raza = raza;
     }
 
-    public Date getFechaRegistro() {
-        return fechaRegistro;
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getFechaRegistro() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return df.format(fechaRegistro);
     }
 
     public void setFechaRegistro(Date fechaRegistro) {
@@ -137,7 +159,7 @@ public class Mascota implements Serializable {
 
     @Override
     public String toString() {
-        return "entidad.Mascota[ idMascota=" + idMascota + " ]";
+        return "com.eduardolynch.veterinariaMVC.entidad.Mascota[ idMascota=" + idMascota + " ]";
     }
-    
+
 }

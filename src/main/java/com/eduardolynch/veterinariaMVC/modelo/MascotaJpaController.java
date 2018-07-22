@@ -13,6 +13,7 @@ import javax.transaction.UserTransaction;
 import com.eduardolynch.veterinariaMVC.modelo.exceptions.NonexistentEntityException;
 import com.eduardolynch.veterinariaMVC.modelo.exceptions.RollbackFailureException;
 import com.eduardolynch.veterinariaMVC.modelo.Impl.MascotaJpaControllerImpl;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -159,6 +160,20 @@ public class MascotaJpaController implements MascotaJpaControllerImpl {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+
+    @Override
+    public List<Mascota> findMascotaByIdUsuario(Integer idUsuario) { //Mascota.findByIdUsuario
+        EntityManager em = getEntityManager();
+        TypedQuery<Mascota> query
+                = em.createNamedQuery("Mascota.findByIdUsuario", Mascota.class)
+                        .setParameter("idUsuario", idUsuario);
+        List<Mascota> mascota = query.getResultList();
+        if (mascota == null || mascota.isEmpty()) {
+            return null;
+        } else {
+            return mascota;
         }
     }
 
