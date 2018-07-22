@@ -135,5 +135,5 @@ COMMIT;
 ```
 
 ### Eres libre de usar el Código en Tus Proyectos
-### Proposito del Repositorio: Tarea Programación de Componentes Web - Inacap Apoquidno
+### Proposito del Repositorio: Tarea Programación de Componentes Web - Inacap Apoquindo
 ### Autor: Eduardo Lynch Araya
