@@ -30,7 +30,7 @@
 ## Script
 ### Base de Datos MYSQL
 
-```MYSQL
+```sql
 -- phpMyAdmin SQL Dump
 -- version 4.8.0
 -- https://www.phpmyadmin.net/
